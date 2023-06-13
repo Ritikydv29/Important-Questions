@@ -1,0 +1,64 @@
+/* A binary tree node structure
+
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+};
+ */
+
+class Solution{
+    public:
+    pair<bool,int>fun(Node *root)
+    {
+        if(root==NULL)
+        {
+            pair<int,int>z;
+            z.first=true;
+            z.second=0;
+            return z;
+        }
+        pair<bool,int>cl=fun(root->left);
+        pair<bool,int>cr=fun(root->right);
+        pair<bool,int>ans;
+        ans.second=max(cl.second,cr.second)+1;
+        bool j,k=cl.first,l=cr.first;
+        if(abs(cl.second-cr.second)<=1)
+        {
+           j=true;
+        }
+        else
+        {
+            j=false;
+        }
+        if(j&&k&&l)
+        {
+            ans.first=true;
+        
+            return ans;
+        }
+        else
+        {
+               ans.first=false;
+               ans.second=max(cl.second,cr.second)+1;
+               return ans;
+        }
+        
+    }
+    bool isBalanced(Node *root)
+    {
+        pair<bool,int>z=fun(root);
+        if(z.first==true)
+        {
+            return true;
+        }
+        return false;
+        //  Your Code here
+    }
+};
