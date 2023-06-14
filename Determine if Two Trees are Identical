@@ -1,0 +1,57 @@
+/* A binary tree node
+
+
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+};
+*/
+
+
+   
+class Solution
+{
+    public:
+    bool solve(Node *r1,Node *r2)
+    {
+       if(r1==NULL &&  r2==NULL)
+       {
+           return true;
+       }
+       if(r1==NULL && r2!=NULL)
+       {
+           return false;
+       }
+        if(r1!=NULL && r2==NULL)
+       {
+           return false;
+       }
+       bool lft=solve(r1->left,r2->left);
+       bool rt=solve(r1->right,r2->right);
+       bool r=((r1->data)==(r2->data));
+       if(lft && rt &&r)
+       {
+           return true;
+       }
+       return false;
+    }
+    //Function to check if two trees are identical.
+    bool isIdentical(Node *r1, Node *r2)
+    {
+     
+     bool z=solve(r1,r2);
+     if(z==false)
+     {
+         return false;
+     }
+     return true;
+        
+    }
+};
