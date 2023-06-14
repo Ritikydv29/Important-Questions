@@ -1,0 +1,49 @@
+/*  Tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+// Should return true if tree is Sum Tree, else false
+class Solution
+{
+    public:
+    pair<bool,int>solve(Node* root)
+    {
+        
+        if(root==NULL)
+        {
+            pair<bool,int>p;
+            p.first=true;
+            p.second=0;
+            return p;
+        }
+       pair<bool,int> cl=solve(root->left);
+       pair<bool,int> cr=solve(root->right);
+        pair<bool,int> k;
+        k.second=root->data;
+        if(cl.second==0 && cr.second==0)
+        {
+            k.first=true;
+        }
+        else if(cl.second+cr.second==k.second)
+        {
+            k.first=true;
+            k.second= k.second+cl.second+cr.second;
+        }
+        else
+        {
+            k.first=false;
+        }
+        return k;
+        
+    }
+    bool isSumTree(Node* root)
+    {
+        pair<bool,int>z=solve(root);
+        return z.first;
+        
+         // solveYour code here
+    }
+};
