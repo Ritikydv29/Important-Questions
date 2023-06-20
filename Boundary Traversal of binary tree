@@ -1,0 +1,100 @@
+/* A binary tree Node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+class Solution {
+public:
+    vector<int>ans;
+    vector<int> Left(Node *root)
+    {
+        if(root==NULL)
+        {
+            return ans;
+        }
+        if(root->left!=NULL)
+        {
+            int element=root->data;
+            ans.push_back(element);
+            Left(root->left);
+        }
+        else
+        {
+            if(root->right!=NULL)
+            {
+             int element=root->data;
+                ans.push_back(element);
+             Left(root->right);
+
+          
+            }
+        
+            
+        }
+        
+        return ans;
+    }
+        vector<int> Leaf(Node *root)
+    {
+        if(root==NULL)
+        {
+            return ans;
+        }
+        if(root->left==NULL && root->right==NULL)
+        {
+            int element=root->data;
+            ans.push_back(element);
+        }
+        Leaf(root->left);
+        Leaf(root->right);
+        
+        return ans;
+    }
+       vector<int> Right(Node *root)
+    {
+        if(root==NULL)
+        {
+            return ans;
+        }
+        if(root->right!=NULL)
+        {
+                 Right(root->right);
+                 int element=root->data;
+                 ans.push_back(element);
+                 
+        }
+        else
+        {
+            if(root->left!=NULL)
+            {
+             Right(root->left);
+             ans.push_back(root->data);
+            }
+        }
+        return ans;
+    }
+    vector <int> boundary(Node *root)
+    {
+        if(root==NULL)
+        {
+            return ans;
+        }
+        ans.push_back(root->data);
+        if(root->left)
+        {
+        Left(root->left);
+        }
+        if(root->left!=NULL || root->right!=NULL)
+        {
+        Leaf(root);
+        }
+        if(root->right)
+        {
+        Right(root->right);
+        }
+        return ans;
+        
+    }
+};
