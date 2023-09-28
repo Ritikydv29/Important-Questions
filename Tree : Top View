@@ -1,0 +1,52 @@
+
+    void topView(Node* root) {
+       int v=0;
+       unordered_map<int,int>dict;
+       queue<pair<Node*,int>>q;
+       pair<Node*,int> p;
+       pair<Node*,int> L;
+       L.second=0;
+       pair<Node*,int> R;
+       R.second=0;
+       int c=0;
+       p.first=root;
+       p.second=v;
+       q.push(p);
+       pair<Node*,int>temp;
+       while(!q.empty())
+       {
+           temp=q.front();
+            q.pop();
+            if(dict.find(temp.second)==dict.end())
+           {
+                dict[temp.second]=temp.first->data;
+                // cout<<temp.first->data<<"-"<<temp.second<<endl;
+                
+           }
+           if(temp.first->left)
+           {
+               L.first=temp.first->left;
+               L.second=temp.second-1;
+               q.push(L);
+               
+           }
+            if(temp.first->right)
+           {
+               R.first=temp.first->right;
+                R.second=temp.second+1;
+               q.push(R);
+           }
+          
+       }
+       vector<int>arr;
+        for (auto it = dict.cbegin(); it != dict.cend();++it) {
+        
+           arr.push_back((*it).first);
+           }
+    sort(arr.begin(),arr.end());
+    for(int i=0;i<arr.size();i++)
+    {
+        cout<<dict[arr[i]]<<" ";
+    }
+    
+    }
